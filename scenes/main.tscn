@@ -1,7 +1,198 @@
-[gd_scene load_steps=2 format=3 uid="uid://ls8k6iwh357a"]
+[gd_scene load_steps=10 format=3 uid="uid://ls8k6iwh357a"]
 
 [ext_resource type="PackedScene" uid="uid://csy70nsl85cwu" path="res://scenes/prefabs/player.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://dwdygwcr02d5n" path="res://scripts/Bar/BarControl.cs" id="2_0wfyh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nf4o2"]
+font_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wfyh"]
+bg_color = Color(0.996078, 0.901961, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdeap"]
+bg_color = Color(0.996078, 0.901961, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rismx"]
+bg_color = Color(0.658274, 0.475382, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
+font_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sugp2"]
+bg_color = Color(0, 0, 0.576471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
+bg_color = Color(0.219926, 1.34766e-06, 0.987329, 1)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_ig7tw")]
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="bar_with_labels_Sanity" type="Control" parent="Control" node_paths=PackedStringArray("label", "progressBar")]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 517.0
+offset_right = 310.0
+offset_bottom = 567.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_0wfyh")
+label = NodePath("Control/Label")
+progressBar = NodePath("Control/ProgressBar")
+
+[node name="Control" type="Control" parent="Control/bar_with_labels_Sanity"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/bar_with_labels_Sanity/Control"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -7.0
+offset_right = -43.0
+offset_bottom = 7.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Sanity"
+label_settings = SubResource("LabelSettings_nf4o2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/bar_with_labels_Sanity/Control"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 221.0
+offset_bottom = 1.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.109136, 7.69611e-05, 0.352756, 1)
+theme_override_colors/font_outline_color = Color(0.237304, 0.000568954, 0.567469, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_0wfyh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fdeap")
+step = 1.0
+
+[node name="bar_with_labels_dream" type="Control" parent="Control" node_paths=PackedStringArray("label", "progressBar")]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 584.0
+offset_right = -1612.0
+offset_bottom = -446.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_0wfyh")
+label = NodePath("Control/Label")
+progressBar = NodePath("Control/ProgressBar")
+
+[node name="Control" type="Control" parent="Control/bar_with_labels_dream"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/bar_with_labels_dream/Control"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Dream Stability"
+label_settings = SubResource("LabelSettings_nf4o2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/bar_with_labels_dream/Control"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 223.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.109136, 7.69611e-05, 0.352756, 1)
+theme_override_colors/font_outline_color = Color(0.237304, 0.000568954, 0.567469, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_rismx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fdeap")
+step = 1.0
+
+[node name="bar_with_label" type="Control" parent="." node_paths=PackedStringArray("label", "progressBar")]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 3.0
+offset_right = 1149.0
+offset_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_0wfyh")
+label = NodePath("Control/Label")
+progressBar = NodePath("Control/ProgressBar")
+
+[node name="Control" type="Control" parent="bar_with_label"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="bar_with_label/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.0
+offset_right = 29.0
+offset_bottom = 14.0
+grow_horizontal = 2
+text = "Game_Name_AlphaV1"
+label_settings = SubResource("LabelSettings_0wfyh")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="bar_with_label/Control"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.0
+offset_right = -1.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.109136, 7.69611e-05, 0.352756, 1)
+theme_override_colors/font_outline_color = Color(0.237304, 0.000568954, 0.567469, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_sugp2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jyhfs")
+step = 1.0
