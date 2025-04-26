@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=3 uid="uid://csy70nsl85cwu"]
 
 [ext_resource type="SpriteFrames" uid="uid://1n0djoq60gu4" path="res://assets/player/player_animations.tres" id="1_dweyp"]
-[ext_resource type="Script" uid="uid://bih52nff2c7nh" path="res://scripts/player/PlayerMovement.cs" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://b0rx3wmbpjcll" path="res://scripts/player/PlayerMovement.cs" id="1_onrkg"]
 
 [sub_resource type="Animation" id="Animation_uw0n8"]
 length = 0.001
