@@ -7,7 +7,14 @@ namespace hscogamejam25.scripts.map
 {
     public partial class MapGenerator : TileMapLayer
     {
-        [Export] private int roomCount = 1;
+        private readonly Vector2I[] atlasCoordinates =
+        {
+            new Vector2I(0, 0), // floor
+            new Vector2I(1, 0), // wall
+            new Vector2I(2, 0) // door
+        };
+        
+        [Export] private int roomCount = 2;
         [Export] private int minRoomSize = 4;
         [Export] private int maxRoomSize = 8;
 
@@ -34,7 +41,7 @@ namespace hscogamejam25.scripts.map
 
             for (int i = 0; i < roomCount; i++)
             {
-                int newRoomX = roomWidth * i + 1;
+                int newRoomX = roomWidth + (roomWidth + 1) * i + 1;
 
                 Room newRoom = new Room(newRoomX, 0, roomWidth, roomHeight);
                 newRoom.AddDoor(Room.Side.Left);
@@ -46,22 +53,39 @@ namespace hscogamejam25.scripts.map
 
         private void GenerateRoom(Room room)
         {
-            Array<Vector2I> cells = new Array<Vector2I>();
-            
-            for (int x = room.X; x < room.X + room.Width; x++)
+            int roomEndX = room.X + room.Width;
+            int roomEndY = room.Y + room.Height;
+            int roomEndXIdx = roomEndX - 1;
+            int roomEndYIdx = roomEndY - 1;
+
+            for (int x = room.X; x < roomEndX; x++)
             {
-                for (int y = room.Y; y < room.Y + room.Height; y++)
+                for (int y = room.Y; y < roomEndY; y++)
                 {
-                    cells.Add(new Vector2I(x, y));
+                    Vector2I position = new Vector2I(x, y);
+            
+                    // Correct grouping of border conditions
+                    if (x == room.X || x == roomEndXIdx || y == room.Y || y == roomEndYIdx)
+                    {
+                        SetCell(position, atlasSourceId, atlasCoordinates[1]); // Border tile
+                    }
+                    else
+                    {
+                        SetCell(position, atlasSourceId, atlasCoordinates[0]); // Floor tile
+                    }
                 }
             }
-            
-            SetCellsTerrainConnect(cells, 0, 0, false);
 
             if (!room.HasDoor()) return;
-            
-            Vector2I doorPosition = new Vector2I(room.Door.X, room.Door.Y);
-            SetCell(doorPosition, atlasSourceId, new Vector2I(1, 3));
+
+            foreach (Door door in room.Doors)
+            {
+                if (door == null) continue;
+
+                Vector2I doorPosition = new Vector2I(door.X, door.Y);
+                SetCell(doorPosition, atlasSourceId, atlasCoordinates[2], (int)door.Side);
+            }
         }
+
     }
 }
