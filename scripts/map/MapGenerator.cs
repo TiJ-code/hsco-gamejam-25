@@ -33,9 +33,9 @@ namespace hscogamejam25.scripts.map
 
         private void GenerateDungeon()
         {
-            const int roomWidth = 10, roomHeight = 7;
+            const int roomWidth = 10;
             
-            Room spawnRoom = new Room(0, 0, roomWidth, roomHeight);
+            Room spawnRoom = new Room(0, 0, roomWidth, 7);
             spawnRoom.AddDoor(Room.Side.Right);
             GenerateRoom(spawnRoom);
 
@@ -43,7 +43,7 @@ namespace hscogamejam25.scripts.map
             {
                 int newRoomX = roomWidth + (roomWidth + 1) * i + 1;
 
-                Room newRoom = new Room(newRoomX, 0, roomWidth, roomHeight);
+                Room newRoom = new Room(newRoomX, 0, roomWidth, random.Next(7, 15));
                 newRoom.AddDoor(Room.Side.Left);
                 newRoom.AddDoor(Room.Side.Right);
                 

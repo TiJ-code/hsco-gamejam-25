@@ -8,17 +8,22 @@ texture = ExtResource("1_remei")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:0/next_alternative_id = 2
 2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, -8.60303, 9.24029, -8.60303, -10.1962, -16, -16, 16, -16, 16, 16)
 2:0/1 = 1
 2:0/1/flip_h = true
+2:0/1/physics_layer_0/polygon_0/points = PackedVector2Array(8.60303, 9.24029, 16, 16, -16, 16, -16, -16, 16, -16, 9.24029, -8.2844)
 
 [sub_resource type="TileSet" id="TileSet_tw8dt"]
 tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ra1yl")
 
 [node name="MapGeneration" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
 tile_set = SubResource("TileSet_tw8dt")
 script = ExtResource("1_ra1yl")
