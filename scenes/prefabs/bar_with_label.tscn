@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv8706tjf75lr"]
+
+[ext_resource type="Script" uid="uid://dwdygwcr02d5n" path="res://scripts/Bar/BarControl.cs" id="1_fdeap"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nf4o2"]
+font_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rismx"]
+bg_color = Color(0.658274, 0.475382, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdeap"]
+bg_color = Color(0.938953, 0.0958524, 1, 1)
+
+[node name="bar_with_label" type="Control" node_paths=PackedStringArray("label", "progressBar")]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -852.0
+offset_bottom = -598.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_fdeap")
+label = NodePath("Control/Label")
+progressBar = NodePath("Control/ProgressBar")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Dream Stability"
+label_settings = SubResource("LabelSettings_nf4o2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 223.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.109136, 7.69611e-05, 0.352756, 1)
+theme_override_colors/font_outline_color = Color(0.237304, 0.000568954, 0.567469, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_rismx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fdeap")
+step = 1.0
