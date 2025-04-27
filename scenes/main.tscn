@@ -1,29 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://ls8k6iwh357a"]
 
+[ext_resource type="PackedScene" uid="uid://csbktgdj1n2ae" path="res://scenes/prefabs/enemy_system/enemy_spawner.tscn" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://csy70nsl85cwu" path="res://scenes/prefabs/player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://dmxd8qd5vsynd" path="res://scenes/prefabs/enemies/close_combat_enemy.tscn" id="2_0wfyh"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="close_combat_enemy" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(75, -9)
-
-[node name="close_combat_enemy2" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(13, -60)
-
-[node name="close_combat_enemy3" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(31, 53)
-
-[node name="close_combat_enemy4" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(52, 40)
-
-[node name="close_combat_enemy5" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(38, -53)
-
-[node name="close_combat_enemy6" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(62, -35)
-
-[node name="close_combat_enemy7" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(72, 20)
+[node name="EnemySpawner" parent="." instance=ExtResource("1_0wfyh")]
+position = Vector2(221, -2)
+pendingEnemiesToSpawn = 70
 
 [node name="player" parent="." instance=ExtResource("1_ig7tw")]

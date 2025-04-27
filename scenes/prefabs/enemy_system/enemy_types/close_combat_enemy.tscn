@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmxd8qd5vsynd"]
 
-[ext_resource type="Script" uid="uid://bvptwxe162x03" path="res://scripts/enemies/CloseCombatEnemy.cs" id="1_8so0f"]
+[ext_resource type="Script" uid="uid://bvptwxe162x03" path="res://scripts/enemy_system/enemy_types/CloseCombatEnemy.cs" id="1_8so0f"]
 [ext_resource type="Texture2D" uid="uid://cg800evsqq7i8" path="res://icon.svg" id="2_dc1fh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wj6lw"]
