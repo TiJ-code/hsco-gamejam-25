@@ -18,14 +18,14 @@ public partial class CloseCombatEnemy : CharacterBody2D
 
     public override void _Process(double delta)
     {
-        if (player != null)
+        if (player != null && IsInstanceValid(player))
         {
             FollowPlayer();
         }
         else
         {
             // Attempt to find the player node globally
-            player = GetTree().Root.GetNode<CharacterBody2D>("/root/Node2D/player");
+            player = GetTree().Root.GetNodeOrNull<CharacterBody2D>("/root/Node2D/player");
             if (player == null)
             {
                 GD.PrintErr("Player node not found in the scene tree.");
@@ -35,6 +35,11 @@ public partial class CloseCombatEnemy : CharacterBody2D
 
     private void FollowPlayer()
     {
+        if (player == null || !IsInstanceValid(player))
+        {
+            return; // Exit if the player is invalid or null
+        }
+
         Vector2 direction = (player.GlobalPosition - GlobalPosition).Normalized();
         Vector2 velocity = direction * speed * (float)GetProcessDeltaTime() * 1000;
 
@@ -59,6 +64,16 @@ public partial class CloseCombatEnemy : CharacterBody2D
     public int GetDamage()
     {
         return damage;
+    }
+
+    public void IncreaseDamage(int amount)
+    {
+        damage *= amount;
+    }
+
+    public void IncreaseHealth(int amount)
+    {
+        health *= amount;
     }
 
 }

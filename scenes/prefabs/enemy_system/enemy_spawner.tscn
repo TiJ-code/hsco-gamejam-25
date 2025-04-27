@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://31uhw7fq44mt" path="res://scripts/enemy_system/EnemySpawner.cs" id="1_8g5qv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t0l0i"]
-size = Vector2(87, 67.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8g5qv"]
 
-[node name="EnemySpawner" type="Area2D"]
+[node name="EnemySpawner" type="Area2D" node_paths=PackedStringArray("spawnArea")]
 script = ExtResource("1_8g5qv")
+spawnArea = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_t0l0i")
+shape = SubResource("RectangleShape2D_8g5qv")

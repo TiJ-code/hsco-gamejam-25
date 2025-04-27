@@ -4,7 +4,9 @@ using System;
 public partial class EnemySpawner : Area2D
 {
     private Random random = new Random();
-    [Export] private int pendingEnemiesToSpawn = 10;
+    [Export] private int pendingEnemiesToSpawn = 0;
+    [Export] private CollisionShape2D spawnArea;
+    private int roomIndex;
 
     public override void _Ready()
     {
@@ -17,6 +19,24 @@ public partial class EnemySpawner : Area2D
         {
             SpawnEnemies(pendingEnemiesToSpawn);
         }
+    }
+
+    // not tested yet
+    public void InitiateEnemySpawner(int roomIndex2, int spawnAreaWidth, int spawnAreaHeight, int enemyCount)
+    {
+        GD.Print($"Initiating enemy spawner with width: {spawnAreaWidth}, height: {spawnAreaHeight}, enemy count: {enemyCount}");
+        if (spawnArea.Shape is RectangleShape2D rectangleShape)
+        {
+            rectangleShape.Size = new Vector2(spawnAreaWidth, spawnAreaHeight);
+        }
+        else
+        {
+            GD.PrintErr("Spawn area is not a RectangleShape2D.");
+            return;
+        }
+
+        roomIndex = roomIndex2;
+        RequestSpawnEnemies(enemyCount);
     }
 
     public void RequestSpawnEnemies(int count)
@@ -34,8 +54,8 @@ public partial class EnemySpawner : Area2D
             for (int attempts = 0; attempts < 10; attempts++) // Limit attempts to find a valid position
             {
                 spawnPosition = new Vector2(
-                    random.Next((int)GlobalPosition.X, (int)(GlobalPosition.X + GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.X)),
-                    random.Next((int)GlobalPosition.Y, (int)(GlobalPosition.Y + GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.Y))
+                    random.Next((int)GlobalPosition.X, (int)(GlobalPosition.X + GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.X)) - GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.X / 2,
+                    random.Next((int)GlobalPosition.Y, (int)(GlobalPosition.Y + GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.Y)) - GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.Y / 2
                 );
                 GD.Print($"Attempting to spawn enemy at {spawnPosition}");
                 if (!IsOverlapping(spawnPosition))
@@ -71,10 +91,14 @@ public partial class EnemySpawner : Area2D
         PackedScene enemyScene = GD.Load<PackedScene>("res://scenes/prefabs/enemy_system/enemy_types/close_combat_enemy.tscn");
 
         // Instance the enemy
-        CharacterBody2D enemyInstance = enemyScene.Instantiate<CharacterBody2D>();
+        CloseCombatEnemy enemyInstance = enemyScene.Instantiate<CloseCombatEnemy>();
 
         // Set the position of the enemy
         enemyInstance.GlobalPosition = position;
+
+        // Increase enemy attributes
+        enemyInstance.IncreaseDamage(roomIndex / 2);
+        enemyInstance.IncreaseHealth(roomIndex / 2);
 
         // Add the enemy to the scene tree
         GetTree().Root.AddChild(enemyInstance);
