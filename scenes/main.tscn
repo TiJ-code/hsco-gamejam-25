@@ -1,5 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://ls8k6iwh357a"]
 
+[ext_resource type="PackedScene" uid="uid://u4modyq2hv22" path="res://scenes/prefabs/enemy_system/enemy_spawner_controller.tscn" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://csy70nsl85cwu" path="res://scenes/prefabs/player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dwdygwcr02d5n" path="res://scripts/Bar/BarControl.cs" id="2_0wfyh"]
 
@@ -25,6 +26,8 @@ bg_color = Color(0, 0, 0.576471, 1)
 bg_color = Color(0.219926, 1.34766e-06, 0.987329, 1)
 
 [node name="Node2D" type="Node2D"]
+
+[node name="EnemySpawnerController" parent="." instance=ExtResource("1_0wfyh")]
 
 [node name="player" parent="." instance=ExtResource("1_ig7tw")]
 
