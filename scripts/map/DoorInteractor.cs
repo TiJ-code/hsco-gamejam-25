@@ -23,9 +23,19 @@ namespace hscogamejam25.scripts.map
                 if (DoorContainer != null)
                 {
                     int multiplier = DoorContainer.Side == Room.Side.Right ? 1 : -1;
+                    int xOffset = 0;
+                    
+                    if (DoorContainer.Side == Room.Side.Left)
+                    {
+                        xOffset = -7;
+                    }
+                    else
+                    {
+                        xOffset = TileSize + 7;
+                    }
                     
                     player.Position = new Vector2(
-                        DoorContainer.TargetDoor.X * TileSize + ((TileSize + 2)* multiplier),
+                        DoorContainer.TargetDoor.X * TileSize + xOffset,
                         DoorContainer.TargetDoor.Y * TileSize + TileSize / 2
                     );
                 }
