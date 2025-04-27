@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcfdsgosjoeht"]
+
+[ext_resource type="Script" uid="uid://j0oq8m65rxgl" path="res://scripts/ProjectileCollider.cs" id="1_jy33o"]
+[ext_resource type="Texture2D" uid="uid://bm7qvll1ahf2f" path="res://assets/player/attack_sprites.png" id="1_p8ivc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7jaqy"]
+radius = 7.0
+
+[node name="MeleeAttackSprite" type="RigidBody2D"]
+disable_mode = 2
+collision_layer = 2
+script = ExtResource("1_jy33o")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = -1.5708
+texture = ExtResource("1_p8ivc")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7jaqy")

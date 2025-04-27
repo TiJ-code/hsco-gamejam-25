@@ -63,13 +63,78 @@ public partial class PlayerController : CharacterBody2D
 
 	private void AttackMelee()
 	{
+		RigidBody2D meleeSprite = SpawnAttackSpriteRigid(true);
+		GetParent().AddChild(meleeSprite);
+		meleeSprite.GlobalPosition = GlobalPosition;
 		
+		// Get direction to mouse
+		Vector2 mousePosition = GetGlobalMousePosition();
+		Vector2 toMouse = (mousePosition - GlobalPosition).Normalized();
+
+		// Slightly offset the spawn position (e.g. 16 pixels forward)
+		Vector2 spawnOffset = toMouse * 16;
+		meleeSprite.GlobalPosition = GlobalPosition + spawnOffset;
+
+		// Make sure no gravity affects it
+		meleeSprite.GravityScale = 0;
+
+		// Rotate the sprite to face the direction
+		meleeSprite.Rotation = toMouse.Angle();
+
+		// Set a constant velocity
+		meleeSprite.LinearVelocity = toMouse * 100;
+
+		// Timer to delete melee sprite after short time
+		Timer timer = new Timer();
+		timer.WaitTime = .75f;
+		timer.OneShot = true;
+		timer.Timeout += () => meleeSprite.QueueFree();
+		meleeSprite.AddChild(timer);
+		timer.Start();
 	}
 
 	private void AttackDistance()
 	{
+		RigidBody2D distanceSprite = SpawnAttackSpriteRigid(false);
+		GetParent().AddChild(distanceSprite);
+
+		// Get direction to mouse
+		Vector2 mousePosition = GetGlobalMousePosition();
+		Vector2 toMouse = (mousePosition - GlobalPosition).Normalized();
+
+		// Slightly offset the spawn position (e.g. 16 pixels forward)
+		Vector2 spawnOffset = toMouse * 16;
+		distanceSprite.GlobalPosition = GlobalPosition + spawnOffset;
+
+		// Make sure no gravity affects it
+		distanceSprite.GravityScale = 0;
+
+		// Rotate the sprite to face the direction
+		distanceSprite.Rotation = toMouse.Angle();
+
+		// Set a constant velocity
+		distanceSprite.LinearVelocity = toMouse * 400;
 		
+		// Timer to delete melee sprite after short time
+		Timer timer = new Timer();
+		timer.WaitTime = 2.5f;
+		timer.OneShot = true;
+		timer.Timeout += () => distanceSprite.QueueFree();
+		distanceSprite.AddChild(timer);
+		timer.Start();
 	}
+
+	public RigidBody2D SpawnAttackSpriteRigid(bool melee)
+	{
+		PackedScene attackScene;
+		if (melee)
+			attackScene = GD.Load<PackedScene>("res://scenes/prefabs/player/attack_sprite_melee.tscn");
+		else
+			attackScene = GD.Load<PackedScene>("res://scenes/prefabs/player/attack_sprite_distance.tscn");
+		RigidBody2D rigid = attackScene.Instantiate<RigidBody2D>();
+		return rigid;
+	}
+
 
 	private void UpdateCursor()
 	{
