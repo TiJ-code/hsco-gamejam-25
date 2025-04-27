@@ -8,50 +8,42 @@ namespace hscogamejam25.scripts.map
         {
             Right, Left
         }
+
+        public enum RoomType
+        {
+            Start, Normal, Hub, End
+        }
         
         public int X { get; private set; }
         public int Y { get; private set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
-        public Door[] Doors { get; private set; }
+        
+        public Door LeftDoor { get; protected set; }
+        public Door RightDoor { get; protected set; }
+        public RoomType Type { get; protected set; }
 
-        public Room(int x, int y, int width, int height)
+        public Room(int x, int y, int width, int height, RoomType type)
         {
             X = x;
             Y = y;
             Width = width;
             Height = height;
-            Doors = new Door[2];
+            Type = type;
         }
 
         public bool HasDoor()
         {
-            if (Doors == null) return false;
-            foreach (Door door in Doors)
-            {
-                if (door != null) return true;
-            }
-
-            return true;
+            return LeftDoor != null || RightDoor != null;
         }
 
         public void AddDoor(Side side)
         {
-            int nextDoorIndex = 0;
-            for (int i = 0; i < Doors.Length; i++)
-            {
-                if (Doors[i] == null) nextDoorIndex = i;
-            }
-            
-            int doorX = 0;
+            int doorY = 2;
             if (side == Side.Left)
-                doorX = 0;
+                LeftDoor = new Door(X, doorY, side);
             else
-                doorX = Width - 1;
-            
-            int doorY = 2; // Always y = 2
-
-            Doors[nextDoorIndex] = new Door(doorX + X, doorY + Y, side);
+                RightDoor = new Door(X + Width - 1, doorY, side);
         }
     }
 }
