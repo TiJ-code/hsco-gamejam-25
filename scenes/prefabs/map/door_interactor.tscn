@@ -5,8 +5,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ysxt"]
 size = Vector2(32, 32)
 
-[node name="DoorInteractor" type="Area2D"]
+[node name="DoorInteractor" type="Area2D" node_paths=PackedStringArray("_collisionShape")]
 script = ExtResource("1_obccw")
+_collisionShape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 16)

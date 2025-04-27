@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ceg78yjpwjsm"]
+[gd_scene load_steps=5 format=3 uid="uid://c7wrs1r8mld3y"]
 
 [ext_resource type="Script" uid="uid://dp0wshul61u1n" path="res://scripts/map/MapGenerator.cs" id="1_ra1yl"]
 [ext_resource type="Texture2D" uid="uid://db55tpj7b18wo" path="res://assets/ground_tiles.png" id="1_remei"]
@@ -21,9 +21,7 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ra1yl")
 
-[node name="MapGeneration" type="Node2D"]
-
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="TileMapLayer" type="TileMapLayer"]
 texture_filter = 1
 tile_set = SubResource("TileSet_tw8dt")
 script = ExtResource("1_ra1yl")

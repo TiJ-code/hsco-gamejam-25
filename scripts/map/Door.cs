@@ -1,7 +1,3 @@
-using Godot;
-
-namespace hscogamejam25.scripts.map;
-
 public class Door
 {
     public int X { get; set; }
@@ -15,10 +11,5 @@ public class Door
         X = x;
         Y = y;
         Side = side;
-    }
-
-    public bool IsTeleportingDirectionLeft()
-    {
-        return X - TargetDoor.X < 0;
     }
 }

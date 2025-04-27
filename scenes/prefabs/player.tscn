@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=3 uid="uid://csy70nsl85cwu"]
 
 [ext_resource type="SpriteFrames" uid="uid://1n0djoq60gu4" path="res://assets/player/player_animations.tres" id="1_dweyp"]
-[ext_resource type="Script" uid="uid://b0rx3wmbpjcll" path="res://scripts/player/PlayerMovement.cs" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://b0rx3wmbpjcll" path="res://scripts/player/PlayerController.cs" id="1_onrkg"]
 
 [sub_resource type="Animation" id="Animation_uw0n8"]
 length = 0.001
@@ -450,10 +450,10 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4flbx"]
 size = Vector2(11, 7)
 
-[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("animationTree")]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("_animationTree")]
 position = Vector2(50, 43)
 script = ExtResource("1_onrkg")
-animationTree = NodePath("AnimationTree")
+_animationTree = NodePath("AnimationTree")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

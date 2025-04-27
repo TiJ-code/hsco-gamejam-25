@@ -1,45 +1,49 @@
 using Godot;
 using System;
 
-namespace hscogamejam25.scripts.map
+public partial class DoorInteractor : Area2D
 {
-    public partial class DoorInteractor : Area2D
+    private const int InteractorPixelOffset = 7;
+    private const int TileSize = 32;
+
+    [Export] private CollisionShape2D _collisionShape;
+    public Door DoorContainer { get; set; }
+        
+    public override void _Ready()
     {
-        private const int TileSize = 32;
-        
-        public Door DoorContainer { get; set; }
-        
-        public override void _Ready()
-        {
-            BodyEntered += OnBodyEntered;
-        }
+        BodyEntered += OnBodyEntered;
+    }
 
-        private void OnBodyEntered(Node2D body)
+    private void OnBodyEntered(Node2D body)
+    {
+        if (body is PlayerController player)
         {
-            if (body is PlayerMovement player)
+            GD.Print("Teleporting to new room!");
+
+            if (DoorContainer != null)
             {
-                GD.Print("Teleporting to new room!");
-
-                if (DoorContainer != null)
+                const int yOffset = TileSize / 2;
+                
+                int xOffset;
+                if (DoorContainer.Side == Room.Side.Left)
                 {
-                    int multiplier = DoorContainer.Side == Room.Side.Right ? 1 : -1;
-                    int xOffset = 0;
-                    
-                    if (DoorContainer.Side == Room.Side.Left)
-                    {
-                        xOffset = -7;
-                    }
-                    else
-                    {
-                        xOffset = TileSize + 7;
-                    }
-                    
-                    player.Position = new Vector2(
-                        DoorContainer.TargetDoor.X * TileSize + xOffset,
-                        DoorContainer.TargetDoor.Y * TileSize + TileSize / 2
-                    );
+                    xOffset = -InteractorPixelOffset;
                 }
+                else
+                {
+                    xOffset = TileSize + InteractorPixelOffset;
+                }
+                    
+                player.Position = new Vector2(
+                    DoorContainer.TargetDoor.X * TileSize + xOffset,
+                    DoorContainer.TargetDoor.Y * TileSize + yOffset
+                );
             }
         }
+    }
+
+    public CollisionShape2D GetCollisionShape()
+    {
+        return _collisionShape;
     }
 }
