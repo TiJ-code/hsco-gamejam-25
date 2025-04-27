@@ -5,6 +5,7 @@ public partial class PlayerController : CharacterBody2D
 {
 	[Export] private float _speed = 50f;
 	[Export] private AnimationTree _animationTree;
+	[Export] private Sprite2D _pointer;
 	private AnimationNodeStateMachinePlayback _stateMachine;
 
 	public override void _Ready()
@@ -13,6 +14,13 @@ public partial class PlayerController : CharacterBody2D
 	}
 
 	public override void _PhysicsProcess(double delta)
+	{
+		UpdateCursor();
+		EvaluateMovement();
+		EvaluateAttack();
+	}
+
+	private void EvaluateMovement()
 	{
 		Vector2 velocity = Velocity;
 		
@@ -36,5 +44,37 @@ public partial class PlayerController : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private void EvaluateAttack()
+	{
+		bool attackMeleePressed = Input.IsActionJustPressed("attack_melee");
+		if (attackMeleePressed)
+		{
+			AttackMelee();	
+		}
+
+		bool attackDistancePressed = Input.IsActionJustPressed("attack_distance");
+		if (attackDistancePressed && !attackMeleePressed)
+		{
+			AttackDistance();
+		}
+	}
+
+	private void AttackMelee()
+	{
+		
+	}
+
+	private void AttackDistance()
+	{
+		
+	}
+
+	private void UpdateCursor()
+	{
+		Vector2 mousePosition = GetGlobalMousePosition();
+		Vector2 toMouse = mousePosition - GlobalPosition;
+		_pointer.Rotation = toMouse.Angle();
 	}
 }

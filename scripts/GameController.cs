@@ -13,6 +13,7 @@ public partial class GameController : Node2D
     public override void _Ready()
     {
         _mapGenerator.GenerateDungeon();
+        _roomController.DoorInteractors = _mapGenerator.Doors;
         _roomController.OpenRoom(1);
     }
 
