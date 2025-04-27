@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class PlayerMovement : CharacterBody2D
+public partial class PlayerController : CharacterBody2D
 {
 	private const float Speed = 50f;
 	

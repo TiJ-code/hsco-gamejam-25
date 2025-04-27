@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=3 uid="uid://csy70nsl85cwu"]
 
 [ext_resource type="SpriteFrames" uid="uid://1n0djoq60gu4" path="res://assets/player/player_animations.tres" id="1_dweyp"]
-[ext_resource type="Script" uid="uid://b0rx3wmbpjcll" path="res://scripts/player/PlayerMovement.cs" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://b0rx3wmbpjcll" path="res://scripts/player/PlayerController.cs" id="1_onrkg"]
 
 [sub_resource type="Animation" id="Animation_uw0n8"]
 length = 0.001
@@ -447,8 +447,9 @@ states/walk/node = SubResource("AnimationNodeBlendTree_4flbx")
 states/walk/position = Vector2(507, 229)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_i3pqv"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_hqtel"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_4flbx")]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4flbx"]
-size = Vector2(11, 7)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tou0u"]
+radius = 4.0
+height = 12.0
 
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("animationTree")]
 script = ExtResource("1_onrkg")
@@ -474,8 +475,8 @@ parameters/walk/BlendSpace2D/blend_position = Vector2(-0.00576782, -0.118343)
 parameters/walk/TimeScale/scale = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 6.5)
-shape = SubResource("RectangleShape2D_4flbx")
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_tou0u")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
