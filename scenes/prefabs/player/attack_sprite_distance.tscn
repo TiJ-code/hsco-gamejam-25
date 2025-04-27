@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bad0p3va5oghy"]
+
+[ext_resource type="Script" uid="uid://j0oq8m65rxgl" path="res://scripts/ProjectileCollider.cs" id="1_jf2ad"]
+[ext_resource type="Texture2D" uid="uid://bm7qvll1ahf2f" path="res://assets/player/attack_sprites.png" id="1_pp7td"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pp7td"]
+size = Vector2(11, 5)
+
+[node name="AttackDistanceSprite" type="RigidBody2D"]
+disable_mode = 2
+collision_layer = 2
+script = ExtResource("1_jf2ad")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_pp7td")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_pp7td")

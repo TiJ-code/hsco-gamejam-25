@@ -1,7 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://csy70nsl85cwu"]
+[gd_scene load_steps=33 format=3 uid="uid://csy70nsl85cwu"]
 
 [ext_resource type="SpriteFrames" uid="uid://1n0djoq60gu4" path="res://assets/player/player_animations.tres" id="1_dweyp"]
 [ext_resource type="Script" uid="uid://b0rx3wmbpjcll" path="res://scripts/player/PlayerController.cs" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://rmiwv5fypd7w" path="res://assets/player/pointer.png" id="3_n0leu"]
 
 [sub_resource type="Animation" id="Animation_uw0n8"]
 length = 0.001
@@ -447,13 +448,16 @@ states/walk/node = SubResource("AnimationNodeBlendTree_4flbx")
 states/walk/position = Vector2(507, 229)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_i3pqv"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_hqtel"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_4flbx")]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tou0u"]
-radius = 4.0
-height = 12.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4flbx"]
+size = Vector2(11, 7)
 
-[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("animationTree")]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("_animationTree", "_pointer")]
+position = Vector2(50, 43)
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_onrkg")
-animationTree = NodePath("AnimationTree")
+_animationTree = NodePath("AnimationTree")
+_pointer = NodePath("Pointer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -475,8 +479,15 @@ parameters/walk/BlendSpace2D/blend_position = Vector2(-0.00576782, -0.118343)
 parameters/walk/TimeScale/scale = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
-shape = SubResource("CapsuleShape2D_tou0u")
+position = Vector2(0.5, 6.5)
+shape = SubResource("RectangleShape2D_4flbx")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="Pointer" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_n0leu")
